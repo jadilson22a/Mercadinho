@@ -13,12 +13,12 @@ public class Main {
     public static void main(String[] args) {
 
         Mercadoria mercadoria = new Mercadoria(
-                "banana",
-                "123455",
+                "banana2",
+                "35674",
                 2.50,
                 1.00,
                 UnidadeMedida.UNIDADE);
 
-        MercadoriaDAO.inserir(mercadoria);
+        MercadoriaDAO.atualizar(2, mercadoria);
     }
 }
