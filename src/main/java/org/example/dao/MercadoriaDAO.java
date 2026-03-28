@@ -53,11 +53,21 @@ public class MercadoriaDAO {
 
             ps.executeUpdate();
 
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        } catch (SQLException e) {throw new RuntimeException(e);}
 
     }
 
     //Deletar
+    public static void deletar(int id){
+
+        String sql = "DELETE FROM `mercadinho`.`mercadorias` WHERE (`id` = ?);";
+
+        try(Connection conn = ConexaoDB.conexao();
+        PreparedStatement ps = conn.prepareStatement(sql)){
+
+            ps.setInt(1, id);
+            ps.executeUpdate();
+
+        }catch (SQLException e){throw new RuntimeException(e);}
+    }
 }
