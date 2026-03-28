@@ -8,15 +8,14 @@ public class Mercadoria {
     private String nome;
     private String codigo;
     private Double preco;
+    private Double quantidade;
     private UnidadeMedida unidadeMedida;
 
-    public Mercadoria(String nome,
-                      String codigo,
-                      Double preco,
-                      UnidadeMedida unidadeMedida) {
+    public Mercadoria(String nome, String codigo, Double preco, Double quantidade, UnidadeMedida unidadeMedida) {
         this.nome = nome;
         this.codigo = codigo;
         this.preco = preco;
+        this.quantidade = quantidade;
         this.unidadeMedida = unidadeMedida;
     }
 
@@ -46,6 +45,14 @@ public class Mercadoria {
 
     public void setPreco(Double preco) {
         this.preco = preco;
+    }
+
+    public Double getQuantidade() {
+        return quantidade;
+    }
+
+    public void setQuantidade(Double quantidade) {
+        this.quantidade = quantidade;
     }
 
     public UnidadeMedida getUnidadeMedida() {

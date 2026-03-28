@@ -1,6 +1,9 @@
 package org.example;
 
 import org.example.connection.ConexaoDB;
+import org.example.dao.MercadoriaDAO;
+import org.example.entities.Mercadoria;
+import org.example.entities.UnidadeMedida;
 
 import java.sql.SQLException;
 
@@ -9,12 +12,13 @@ import java.sql.SQLException;
 public class Main {
     public static void main(String[] args) {
 
-        try {
-            ConexaoDB.conexao();
-            System.out.println("Conexão realizada!");
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        Mercadoria mercadoria = new Mercadoria(
+                "banana",
+                "123455",
+                2.50,
+                1.00,
+                UnidadeMedida.UNIDADE);
 
+        MercadoriaDAO.inserir(mercadoria);
     }
 }
