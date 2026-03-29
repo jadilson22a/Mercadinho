@@ -2,6 +2,7 @@ package org.example.dao;
 
 import org.example.connection.ConexaoDB;
 import org.example.entities.Mercadoria;
+import org.example.entities.UnidadeMedida;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -67,6 +68,27 @@ public class MercadoriaDAO {
 
             ps.setInt(1, id);
             ps.executeUpdate();
+
+        }catch (SQLException e){throw new RuntimeException(e);}
+    }
+
+    public static Mercadoria buscarId(int id){
+        String sql = "select * from mercadinho where id = ?";
+
+        try(Connection conn = ConexaoDB.conexao();
+        PreparedStatement ps = conn.prepareStatement(sql)){
+
+            ps.setInt(1, id);
+
+            ResultSet rs = ps.executeQuery();
+
+            String nome = rs.getString("nome");
+            String codigo = rs.getString("codigo");
+            Double preco = rs.getDouble("preco");
+            Double quantidade = rs.getDouble("quantidade");
+            String umSigla = rs.getString("unidadeMedida");
+
+            return new Mercadoria(id,nome,codigo,preco,quantidade,UnidadeMedida.getEnum(umSigla));
 
         }catch (SQLException e){throw new RuntimeException(e);}
     }

@@ -19,6 +19,15 @@ public class Mercadoria {
         this.unidadeMedida = unidadeMedida;
     }
 
+    public Mercadoria(int id, String nome, String codigo, Double preco, Double quantidade, UnidadeMedida unidadeMedida) {
+        this.id = id;
+        this.nome = nome;
+        this.codigo = codigo;
+        this.preco = preco;
+        this.quantidade = quantidade;
+        this.unidadeMedida = unidadeMedida;
+    }
+
     public int getId() {
         return id;
     }

@@ -27,5 +27,19 @@ public enum UnidadeMedida {
     public String getSigla() {
         return sigla;
     }
+
+    public static UnidadeMedida getEnum(String sigla){
+        UnidadeMedida[] enums = UnidadeMedida.values();
+
+        UnidadeMedida enumEncontrada = null;
+
+        for (int i = 0; i < enums.length; i++) {
+            if (enums[i].getSigla().equals(sigla)){
+                enumEncontrada = enums[i];
+            }
+        }
+
+        return enumEncontrada;
+    }
 }
 
