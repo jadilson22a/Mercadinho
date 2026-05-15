@@ -9,9 +9,7 @@ import org.example.entities.UnidadeMedida;
 public class Main {
     public static void main(String[] args) {
 
-        System.out.println("Busca por ID: " + MercadoriaDAO.buscarId(1));
-
-        System.out.println("Busca por nome: " + MercadoriaDAO.buscarNome("morango"));
+        MercadoriaDAO.inserir(new Mercadoria("caneta", "123456", 25.90, 12.00, UnidadeMedida.PACOTE));
 
     }
 }

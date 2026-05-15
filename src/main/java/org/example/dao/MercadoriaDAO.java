@@ -15,8 +15,8 @@ public class MercadoriaDAO {
 
     //Inserir
     public static void inserir(Mercadoria mercadoria){
-        String sql = "INSERT INTO `mercadinho`.`mercadorias` " +
-                "(`nome`, `codigo`, `preco`, `quantidade`, `unidadeMedida`) " +
+        String sql = "INSERT INTO `loja`.`mercadoria` " +
+                "(`nome`, `codigo`, `preco`, `quantidade`, `unidade_medida`) " +
                 "VALUES (?, ?, ?, ?, ?);";
 
         try (Connection conn = ConexaoDB.conexao();
@@ -24,7 +24,7 @@ public class MercadoriaDAO {
 
             ps.setString(1, mercadoria.getNome());
             ps.setString(2, mercadoria.getCodigo());
-            ps.setDouble(3,mercadoria.getPreco());
+            ps.setDouble(3, mercadoria.getPreco());
             ps.setDouble(4, mercadoria.getQuantidade());
             ps.setString(5, mercadoria.getUnidadeMedida().getSigla());
 
@@ -36,12 +36,12 @@ public class MercadoriaDAO {
 
     //Atualizar
     public static void atualizar(int id, Mercadoria mercadoria){
-        String sql = "UPDATE `mercadinho`.`mercadorias` " +
+        String sql = "UPDATE `loja`.`mercadoria` " +
                 "SET `nome` = ?, " +
                 "`codigo` = ?, " +
                 "`preco` = ?, " +
                 "`quantidade` = ?, " +
-                "`unidadeMedida` = ?" +
+                "`unidade_medida` = ?" +
                 "WHERE (`id` = ?);";
 
         try (Connection conn = ConexaoDB.conexao();
@@ -63,7 +63,7 @@ public class MercadoriaDAO {
     //Deletar
     public static void deletar(int id){
 
-        String sql = "DELETE FROM `mercadinho`.`mercadorias` WHERE (`id` = ?);";
+        String sql = "DELETE FROM `loja`.`mercadoria` WHERE (`id` = ?);";
 
         try(Connection conn = ConexaoDB.conexao();
         PreparedStatement ps = conn.prepareStatement(sql)){
@@ -76,7 +76,7 @@ public class MercadoriaDAO {
 
     //BuscarID
     public static Mercadoria buscarId(int id){
-        String sql = "select * from mercadorias where id = ?";
+        String sql = "select * from mercadoria where id = ?";
 
         try(Connection conn = ConexaoDB.conexao();
         PreparedStatement ps = conn.prepareStatement(sql)){
@@ -89,7 +89,7 @@ public class MercadoriaDAO {
                 String codigo = rs.getString("codigo");
                 Double preco = rs.getDouble("preco");
                 Double quantidade = rs.getDouble("quantidade");
-                String umSigla = rs.getString("unidadeMedida");
+                String umSigla = rs.getString("unidade_medida");
 
                 return new Mercadoria(id, nome, codigo, preco, quantidade, UnidadeMedida.getEnum(umSigla));
             }
@@ -100,7 +100,7 @@ public class MercadoriaDAO {
 
     //Buscar por nome
     public static List<Mercadoria> buscarNome(String nome){
-        String sql = "select * from mercadorias where nome = ?";
+        String sql = "select * from mercadoria where nome = ?";
 
         try(Connection conn = ConexaoDB.conexao();
             PreparedStatement ps = conn.prepareStatement(sql)){
@@ -116,7 +116,7 @@ public class MercadoriaDAO {
                 String codigo = rs.getString("codigo");
                 Double preco = rs.getDouble("preco");
                 Double quantidade = rs.getDouble("quantidade");
-                String umSigla = rs.getString("unidadeMedida");
+                String umSigla = rs.getString("unidade_medida");
 
                 mercadorias.add(
                         new Mercadoria(id, nome, codigo, preco, quantidade, UnidadeMedida.getEnum(umSigla))
