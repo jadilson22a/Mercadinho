@@ -1,4 +1,6 @@
-package org.example.entities;
+package org.example.models;
+
+import org.example.entities.UnidadeMedida;
 
 public class Mercadoria {
 

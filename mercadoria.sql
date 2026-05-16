@@ -2,6 +2,7 @@ CREATE TABLE mercadoria (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(255) NOT NULL,
     codigo VARCHAR(100) NOT NULL UNIQUE,
+    custo DECIMAL(10,2) NOT NULL,
     preco DECIMAL(10,2) NOT NULL,
     quantidade DECIMAL(10,3) NOT NULL,
 

@@ -1,8 +1,8 @@
 package org.example.dao;
 
 import org.example.connection.ConexaoDB;
-import org.example.entities.Mercadoria;
 import org.example.entities.UnidadeMedida;
+import org.example.models.Mercadoria;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,7 +11,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MercadoriaDAO {
+//toda vez que add um novo campo na entidade tem que ajustar essa merda
+//fazer uma oração e tentar criar polimorfismo nessa b0st@
+public class MercadoriaDAO { 
 
     //Inserir
     public static void inserir(Mercadoria mercadoria){
@@ -90,6 +92,31 @@ public class MercadoriaDAO {
             if (rs.next()) {
                 String nome = rs.getString("nome");
                 String codigo = rs.getString("codigo");
+                Double custo = rs.getDouble("custo");
+                Double preco = rs.getDouble("preco");
+                Double quantidade = rs.getDouble("quantidade");
+                String umSigla = rs.getString("unidade_medida");
+
+                return new Mercadoria(id, nome, codigo, custo, preco, quantidade, UnidadeMedida.getEnum(umSigla));
+            }
+
+            return null;
+        }catch (SQLException e){throw new RuntimeException(e);}
+    }
+
+    //Buscar Codigo
+    public static Mercadoria buscarCodigo(String codigo){
+        String sql = "select * from mercadoria where codigo = ?";
+
+        try(Connection conn = ConexaoDB.conexao();
+        PreparedStatement ps = conn.prepareStatement(sql)){
+
+            ps.setString(1, codigo);
+
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                Integer id = rs.getInt("id");
+                String nome = rs.getString("nome");
                 Double custo = rs.getDouble("custo");
                 Double preco = rs.getDouble("preco");
                 Double quantidade = rs.getDouble("quantidade");

@@ -3,8 +3,8 @@ package org.example;
 import java.util.List;
 
 import org.example.dao.MercadoriaDAO;
-import org.example.entities.Mercadoria;
 import org.example.entities.UnidadeMedida;
+import org.example.models.Mercadoria;
 
 public class MainTests {
     
@@ -13,7 +13,7 @@ public class MainTests {
 
         try {
             // testando CRUD mercadoria
-            MercadoriaDAO.inserir(new Mercadoria("teste", "123456", 25.90, 12.00, UnidadeMedida.PACOTE));
+            MercadoriaDAO.inserir(new Mercadoria("teste", "123456", 01.00, 01.00, 12.00, UnidadeMedida.PACOTE));
             List<Mercadoria> mercadorias = MercadoriaDAO.buscarNome("teste");
             mercadorias.forEach(x -> MercadoriaDAO.deletar(x.getId()));
 
