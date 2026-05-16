@@ -16,17 +16,18 @@ public class MercadoriaDAO {
     //Inserir
     public static void inserir(Mercadoria mercadoria){
         String sql = "INSERT INTO `loja`.`mercadoria` " +
-                "(`nome`, `codigo`, `preco`, `quantidade`, `unidade_medida`) " +
-                "VALUES (?, ?, ?, ?, ?);";
+                "(`nome`, `codigo`, `custo`, `preco`, `quantidade`, `unidade_medida`) " +
+                "VALUES (?, ?, ?, ?, ?, ?);";
 
         try (Connection conn = ConexaoDB.conexao();
         PreparedStatement ps = conn.prepareStatement(sql)){
 
             ps.setString(1, mercadoria.getNome());
             ps.setString(2, mercadoria.getCodigo());
-            ps.setDouble(3, mercadoria.getPreco());
-            ps.setDouble(4, mercadoria.getQuantidade());
-            ps.setString(5, mercadoria.getUnidadeMedida().getSigla());
+            ps.setDouble(3, mercadoria.getCusto());
+            ps.setDouble(4, mercadoria.getPreco());
+            ps.setDouble(5, mercadoria.getQuantidade());
+            ps.setString(6, mercadoria.getUnidadeMedida().getSigla());
 
             ps.executeUpdate();
         } catch (Exception e) {
@@ -39,6 +40,7 @@ public class MercadoriaDAO {
         String sql = "UPDATE `loja`.`mercadoria` " +
                 "SET `nome` = ?, " +
                 "`codigo` = ?, " +
+                "`custo` = ?, " +
                 "`preco` = ?, " +
                 "`quantidade` = ?, " +
                 "`unidade_medida` = ?" +
@@ -49,10 +51,11 @@ public class MercadoriaDAO {
 
             ps.setString(1, mercadoria.getNome());
             ps.setString(2, mercadoria.getCodigo());
-            ps.setDouble(3,mercadoria.getPreco());
-            ps.setDouble(4, mercadoria.getQuantidade());
-            ps.setString(5, mercadoria.getUnidadeMedida().getSigla());
-            ps.setInt(6, id);
+            ps.setDouble(3, mercadoria.getCusto());
+            ps.setDouble(4, mercadoria.getPreco());
+            ps.setDouble(5, mercadoria.getQuantidade());
+            ps.setString(6, mercadoria.getUnidadeMedida().getSigla());
+            ps.setInt(7, id);
 
             ps.executeUpdate();
 
@@ -87,11 +90,12 @@ public class MercadoriaDAO {
             if (rs.next()) {
                 String nome = rs.getString("nome");
                 String codigo = rs.getString("codigo");
+                Double custo = rs.getDouble("custo");
                 Double preco = rs.getDouble("preco");
                 Double quantidade = rs.getDouble("quantidade");
                 String umSigla = rs.getString("unidade_medida");
 
-                return new Mercadoria(id, nome, codigo, preco, quantidade, UnidadeMedida.getEnum(umSigla));
+                return new Mercadoria(id, nome, codigo, custo, preco, quantidade, UnidadeMedida.getEnum(umSigla));
             }
 
             return null;
@@ -114,12 +118,13 @@ public class MercadoriaDAO {
             while (rs.next()) {
                 int id = rs.getInt("id");
                 String codigo = rs.getString("codigo");
+                Double custo = rs.getDouble("custo");
                 Double preco = rs.getDouble("preco");
                 Double quantidade = rs.getDouble("quantidade");
                 String umSigla = rs.getString("unidade_medida");
 
                 mercadorias.add(
-                        new Mercadoria(id, nome, codigo, preco, quantidade, UnidadeMedida.getEnum(umSigla))
+                        new Mercadoria(id, nome, codigo, custo, preco, quantidade, UnidadeMedida.getEnum(umSigla))
                 );
             }
 
