@@ -8,36 +8,42 @@ import com.github.jadilson22a.mercadinho.model.ProdutoDAO;
 
 public class ProdutoService {
 	
+	private final static ProdutoDAO dao = new ProdutoDAO();
+	
 	public static void salvar(Produto produto) {
 		validar(produto);
-		ProdutoDAO.salvar(produto);
+		dao.salvar(produto);
 	}
 	
 	public static void atualizar(long id, Produto produto) {
 		validar(produto);
-		ProdutoDAO.atualizar(id, produto);
+		dao.atualizar(id, produto);
 	}
 	
 	public static List<Produto> buscarTudo() {
-		return ProdutoDAO.findAll();
+		return dao.findAll();
 	}
 	
 	public static Produto buscarID(long id) {
-		return ProdutoDAO.findById(id);
+		return dao.findById(id);
 	}
 	
 	public static void excluir(long id) {
-		ProdutoDAO.excluir(id);
+		dao.excluir(id);
 	}
 	
 	private static void validar(Produto produto) {
 		Optional<Produto> produtoEncontrado = 
-				Optional.ofNullable(ProdutoDAO.findByNome(produto.getNome()));
+				Optional.ofNullable(dao.findByNome(produto.getNome()));
 		
 		if (produtoEncontrado.isPresent()) {
 			throw new RuntimeException("Esse produto ja existe!");
 		}
 		
+	}
+	
+	public static void finalizarConexao() {
+		dao.finalizarConexao();
 	}
 
 }

@@ -20,5 +20,6 @@ public class App
 	    System.out.println("Produto salvo!");
 	    ProdutoService.salvar(produto);
 	    ProdutoService.buscarTudo().forEach(System.out::println);;
+	    ProdutoService.finalizarConexao();
     }
 }

@@ -8,9 +8,15 @@ import jakarta.persistence.Persistence;
 
 public class ProdutoDAO {
 	
-	public static void salvar(Produto produto) {
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("mercadinhoPU");
-		EntityManager em = emf.createEntityManager();
+	private EntityManagerFactory emf;
+	private EntityManager em;
+	
+	public ProdutoDAO() {
+		this.emf = Persistence.createEntityManagerFactory("mercadinhoPU");
+		this.em = emf.createEntityManager();
+	}
+
+	public void salvar(Produto produto) {
 		
 		try {
 			em.getTransaction().begin();
@@ -24,15 +30,10 @@ public class ProdutoDAO {
 			
 			throw e;
 				
-		} finally {
-			em.close();
-			emf.close();
 		}
 	}
 	
-	public static Produto findById(long id) {
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("mercadinhoPU");
-		EntityManager em = emf.createEntityManager();
+	public Produto findById(long id) {
 		
 		try {
 			return em.find(Produto.class, id);
@@ -44,15 +45,10 @@ public class ProdutoDAO {
 			
 			throw e;
 				
-		} finally {
-			em.close();
-			emf.close();
 		}
 	}
 	
-	public static void atualizar(long id, Produto produto) {
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("mercadinhoPU");
-		EntityManager em = emf.createEntityManager();
+	public void atualizar(long id, Produto produto) {
 		
 		try {
 			em.getTransaction().begin();
@@ -73,16 +69,11 @@ public class ProdutoDAO {
 			
 			throw e;
 				
-		} finally {
-			em.close();
-			emf.close();
 		}
 	}
 	
-	public static void excluir(long id) {
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("mercadinhoPU");
-		EntityManager em = emf.createEntityManager();
-		
+	public void excluir(long id) {
+
 		try {
 			em.getTransaction().begin();
 			Produto produtoEncontrado = em.find(Produto.class, id);
@@ -100,15 +91,10 @@ public class ProdutoDAO {
 			
 			throw e;
 				
-		} finally {
-			em.close();
-			emf.close();
 		}
 	}
 	
-	public static List<Produto> findAll() {
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("mercadinhoPU");
-		EntityManager em = emf.createEntityManager();
+	public List<Produto> findAll() {
 		
 		try {
 			return em.createQuery("SELECT p FROM Produto p", Produto.class).getResultList();
@@ -120,16 +106,11 @@ public class ProdutoDAO {
 			
 			throw e;
 				
-		} finally {
-			em.close();
-			emf.close();
 		}
 	}
 	
-	public static Produto findByNome(String nome) {
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("mercadinhoPU");
-		EntityManager em = emf.createEntityManager();
-		
+	public Produto findByNome(String nome) {
+
 		try {
 			return em.createQuery(
 					"select p from Produto p where nome='"+ nome + "'", 
@@ -142,10 +123,12 @@ public class ProdutoDAO {
 			
 			throw e;
 			
-		} finally {
-			em.close();
-			emf.close();
 		}
+	}
+	
+	public void finalizarConexao() {
+		em.close();
+		emf.close();
 	}
 
 }
