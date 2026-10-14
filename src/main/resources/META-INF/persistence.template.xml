@@ -13,6 +13,8 @@
         </provider>
 
         <class>com.github.jadilson22a.mercadinho.model.Produto</class>
+        <class>com.github.jadilson22a.mercadinho.model.ProdutoIn</class>
+        <class>com.github.jadilson22a.mercadinho.model.ProdutoEx</class>
 
         <properties>
             <property name="jakarta.persistence.jdbc.driver"

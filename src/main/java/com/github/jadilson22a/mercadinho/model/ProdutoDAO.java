@@ -16,7 +16,7 @@ public class ProdutoDAO {
 		this.em = emf.createEntityManager();
 	}
 
-	public void salvar(Produto produto) {
+	public void salvar(ProdutoInterface produto) {
 		
 		try {
 			em.getTransaction().begin();
@@ -33,10 +33,10 @@ public class ProdutoDAO {
 		}
 	}
 	
-	public Produto findById(long id) {
+	public ProdutoInterface findById(long id) {
 		
 		try {
-			return em.find(Produto.class, id);
+			return (ProdutoInterface) em.find(Produto.class, id);
 		} catch (RuntimeException e) {
 			
 			if(em.getTransaction().isActive()) {
@@ -48,11 +48,11 @@ public class ProdutoDAO {
 		}
 	}
 	
-	public void atualizar(long id, Produto produto) {
+	public void atualizar(long id, ProdutoInterface produto) {
 		
 		try {
 			em.getTransaction().begin();
-			Produto produtoEncontrado = em.find(Produto.class, id);
+			ProdutoInterface produtoEncontrado = (ProdutoInterface) em.find(Produto.class, id);
 			
 			if(produtoEncontrado != null) {
 				produtoEncontrado.setNome(produto.getNome());
@@ -76,7 +76,7 @@ public class ProdutoDAO {
 
 		try {
 			em.getTransaction().begin();
-			Produto produtoEncontrado = em.find(Produto.class, id);
+			ProdutoInterface produtoEncontrado = (ProdutoInterface) em.find(Produto.class, id);
 			
 			if(produtoEncontrado != null) {
 				em.remove(produtoEncontrado);
@@ -94,10 +94,13 @@ public class ProdutoDAO {
 		}
 	}
 	
-	public List<Produto> findAll() {
+	public List<ProdutoInterface> findAll() {
 		
 		try {
-			return em.createQuery("SELECT p FROM Produto p", Produto.class).getResultList();
+			return em.createQuery("SELECT p FROM Produto p", Produto.class).getResultList()
+					.stream()
+					.map(p -> (ProdutoInterface) p)
+					.toList();
 		} catch (RuntimeException e) {
 			
 			if(em.getTransaction().isActive()) {
@@ -109,12 +112,15 @@ public class ProdutoDAO {
 		}
 	}
 	
-	public Produto findByNome(String nome) {
+	public ProdutoInterface findByNome(String nome) {
 
 		try {
 			return em.createQuery(
-					"select p from Produto p where nome='"+ nome + "'", 
-					Produto.class).getSingleResultOrNull();
+					"select p from Produto p where p.nome= :nome", 
+					Produto.class)
+					.setParameter("nome", nome)
+					.setMaxResults(1)
+					.getSingleResultOrNull();
 		} catch (RuntimeException e) {
 			
 			if(em.getTransaction().isActive()) {
