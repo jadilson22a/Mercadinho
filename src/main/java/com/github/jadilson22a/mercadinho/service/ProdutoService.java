@@ -3,9 +3,12 @@ package com.github.jadilson22a.mercadinho.service;
 import java.util.List;
 import java.util.Optional;
 
+import javax.swing.SwingUtilities;
+
+import com.github.jadilson22a.mercadinho.data.ProdutoDAO;
+import com.github.jadilson22a.mercadinho.entities.ProdutoInterface;
 import com.github.jadilson22a.mercadinho.model.Produto;
-import com.github.jadilson22a.mercadinho.model.ProdutoDAO;
-import com.github.jadilson22a.mercadinho.model.ProdutoInterface;
+import com.github.jadilson22a.mercadinho.view.ErroView;
 
 public class ProdutoService {
 	
@@ -38,7 +41,7 @@ public class ProdutoService {
 				Optional.ofNullable(dao.findByNome(produto.getNome()));
 		
 		if (produtoEncontrado.isPresent()) {
-			throw new RuntimeException("Esse produto ja existe!");
+			SwingUtilities.invokeLater(() -> {new ErroView("Produto Existente!");});
 		}
 		
 	}

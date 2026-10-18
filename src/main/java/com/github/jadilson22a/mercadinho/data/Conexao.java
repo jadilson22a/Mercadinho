@@ -3,6 +3,11 @@ package com.github.jadilson22a.mercadinho.data;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+
+import javax.swing.SwingUtilities;
+
+import com.github.jadilson22a.mercadinho.view.ErroView;
+
 import io.github.cdimascio.dotenv.Dotenv;
 
 public class Conexao {
@@ -31,7 +36,9 @@ public class Conexao {
             System.out.println("Arquivo persistence.xml gerado com sucesso através do dotenv!");
             
         } catch (IOException e) {
-            System.err.println("Erro ao processar os arquivos XML: " + e.getMessage());
+        	SwingUtilities.invokeLater(() -> {
+        		new ErroView("Erro ao processar os arquivos XML: " + e.getMessage());
+        	});
         }
 	}
 }

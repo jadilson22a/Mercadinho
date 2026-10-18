@@ -1,4 +1,4 @@
-package com.github.jadilson22a.mercadinho.model;
+package com.github.jadilson22a.mercadinho.entities;
 
 public interface ProdutoInterface {
 	String getCodigo();

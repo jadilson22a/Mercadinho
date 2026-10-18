@@ -2,6 +2,9 @@ package com.github.jadilson22a.mercadinho.model;
 
 import java.util.Objects;
 
+import com.github.jadilson22a.mercadinho.entities.ProdutoInterface;
+import com.github.jadilson22a.mercadinho.entities.UnidadeMedida;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorColumn;
 import jakarta.persistence.Entity;
@@ -34,14 +37,17 @@ public abstract class Produto implements ProdutoInterface{
 	@Enumerated(EnumType.STRING)
 	private UnidadeMedida um;
 	
-	public Produto(long id, String nome, Double quantidade, UnidadeMedida um) {
+	@Column(name = "valor")
+	private Double valor;
+	
+	public Produto(long id, String nome, Double quantidade, UnidadeMedida um, Double valor) {
 			this.id = id;
 		this.nome = nome;
 		this.quantidade = quantidade;
 		this.um = um;
 	}
 
-	public Produto(String nome, Double quantidade, UnidadeMedida um) {
+	public Produto(String nome, Double quantidade, UnidadeMedida um, Double valor) {
 		this.nome = nome;
 		this.quantidade = quantidade;
 		this.um = um;
@@ -82,9 +88,17 @@ public abstract class Produto implements ProdutoInterface{
 		this.um = um;
 	}
 
+	public Double getValor() {
+		return valor;
+	}
+
+	public void setValor(Double valor) {
+		this.valor = valor;
+	}
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(Long.valueOf(id), nome, quantidade, um);
+		return Objects.hash(Long.valueOf(id), nome, quantidade, um, valor);
 	}
 
 	@Override
@@ -97,12 +111,12 @@ public abstract class Produto implements ProdutoInterface{
 			return false;
 		Produto other = (Produto) obj;
 		return id == other.id && Objects.equals(nome, other.nome) && Objects.equals(quantidade, other.quantidade)
-				&& um == other.um;
+				&& um == other.um && Objects.equals(valor, other.valor);
 	}
 
 	@Override
 	public String toString() {
-		return "Produto [id=" + id + ", nome=" + nome + ", quantidade=" + quantidade + ", um=" + um + "]";
+		return "Produto [id=" + id + ", nome=" + nome + ", quantidade=" + quantidade + ", um=" + um + ", valor=" + valor + "]";
 	}
 	
 	

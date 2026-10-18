@@ -1,6 +1,12 @@
-package com.github.jadilson22a.mercadinho.model;
+package com.github.jadilson22a.mercadinho.data;
 
 import java.util.List;
+
+import javax.swing.SwingUtilities;
+
+import com.github.jadilson22a.mercadinho.entities.ProdutoInterface;
+import com.github.jadilson22a.mercadinho.model.Produto;
+import com.github.jadilson22a.mercadinho.view.ErroView;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
@@ -28,7 +34,7 @@ public class ProdutoDAO {
 				em.getTransaction().rollback();
 			}
 			
-			throw e;
+			SwingUtilities.invokeLater(() -> {new ErroView(e.getMessage());});
 				
 		}
 	}
@@ -43,7 +49,8 @@ public class ProdutoDAO {
 				em.getTransaction().rollback();
 			}
 			
-			throw e;
+			SwingUtilities.invokeLater(() -> {new ErroView(e.getMessage());});
+			return null;
 				
 		}
 	}
@@ -67,7 +74,7 @@ public class ProdutoDAO {
 				em.getTransaction().rollback();
 			}
 			
-			throw e;
+			SwingUtilities.invokeLater(() -> {new ErroView(e.getMessage());});
 				
 		}
 	}
@@ -89,7 +96,7 @@ public class ProdutoDAO {
 				em.getTransaction().rollback();
 			}
 			
-			throw e;
+			SwingUtilities.invokeLater(() -> {new ErroView(e.getMessage());});
 				
 		}
 	}
@@ -107,7 +114,8 @@ public class ProdutoDAO {
 				em.getTransaction().rollback();
 			}
 			
-			throw e;
+			SwingUtilities.invokeLater(() -> {new ErroView(e.getMessage());});
+			return null;
 				
 		}
 	}
@@ -127,7 +135,8 @@ public class ProdutoDAO {
 				em.getTransaction().rollback();
 			}
 			
-			throw e;
+			SwingUtilities.invokeLater(() -> {new ErroView(e.getMessage());});
+			return null;
 			
 		}
 	}

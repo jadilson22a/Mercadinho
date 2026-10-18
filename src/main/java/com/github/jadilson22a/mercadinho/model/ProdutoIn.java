@@ -2,6 +2,8 @@ package com.github.jadilson22a.mercadinho.model;
 
 import java.util.Objects;
 
+import com.github.jadilson22a.mercadinho.entities.UnidadeMedida;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
@@ -13,13 +15,13 @@ public class ProdutoIn extends Produto{
 	@Column(name = "sku", length = 4)
 	private String sku;
 
-	public ProdutoIn(long id, String nome, Double quantidade, UnidadeMedida um, String sku) {
-		super(id, nome, quantidade, um);
+	public ProdutoIn(long id, String nome, Double quantidade, UnidadeMedida um, Double valor, String sku) {
+		super(id, nome, quantidade, um, valor);
 		this.sku = sku;
 	}
 
-	public ProdutoIn(String nome, Double quantidade, UnidadeMedida um, String sku) {
-		super(nome, quantidade, um);
+	public ProdutoIn(String nome, Double quantidade, UnidadeMedida um, Double valor, String sku) {
+		super(nome, quantidade, um, valor);
 		this.sku = sku;
 	}
 
